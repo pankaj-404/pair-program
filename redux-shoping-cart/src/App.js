@@ -1,15 +1,13 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import Routes from "./components/Routes";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Navbar />
+    <>
+      <NavBar />
       <Routes />
-    </div>
+    </>
   );
 }
-
-export default App;

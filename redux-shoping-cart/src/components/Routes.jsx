@@ -1,37 +1,35 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
-import Products from "./Products";
 import Cart from "./Cart";
 import Orders from "./Orders";
-import Form from "./Form";
-import AddProduct from "./AddProduct";
-import Edit from "./Edit";
+import Item from "./Item";
+import AddProducts from "./AddProducts";
+import EditProduct from "./EditProduct";
 import { connect } from "react-redux";
-import { addToCart, updateItem } from "../redux/action";
+import PersionDetails from "./PersionDetails";
+// import{cartArr} from "../redux/"
 
-function Routes() {
+const Routes = (state) => {
+  const { cartArr, orders } = state;
   return (
-    <>
-      <Switch>
-        <Route exact path="/" render={() => <Home />}></Route>
-        <Route exact path="/products" render={() => <Products />}></Route>
-        <Route path="/cart" render={() => <Cart />}></Route>
-        <Route path="/orders" render={() => <Orders />}></Route>
-        <Route path="/product/add" render={() => <AddProduct />}></Route>
-        <Route path="/product/:id/edit" render={() => <Edit />}></Route>
-      </Switch>
-    </>
+    <Switch>
+      <Route exact path="/" render={() => <Home />} />
+      <Route path="/edit/:id" render={(props) => <EditProduct {...props} />} />
+      <Route
+        path="/userDetails"
+        render={(props) => <PersionDetails {...props} />}
+      />
+      {cartArr.length > 0 && <Route path="/Cart" render={() => <Cart />} />}
+      <Route path="/Addproducts" render={() => <AddProducts />} />
+      {orders.length > 0 && <Route path="/Orders" render={() => <Orders />} />}
+    </Switch>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
-  // products: state.products,
+  cartArr: state.cartArr,
+  quantity: state.quantity,
+  orders: state.orders,
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  // addToCart: (id) => dispatch(addToCart(id)),
-  // updateItem: (id) => dispatch(updateItem(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default connect(mapStateToProps)(Routes);

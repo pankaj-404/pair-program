@@ -6,6 +6,7 @@ import {
   REDUCE_COUNTER,
   DELETE_FROM_CART,
   ADD_TO_CART,
+  EDIT_ITEM,
   ADD_TO_ORDERS,
 } from "./actionTypes";
 
