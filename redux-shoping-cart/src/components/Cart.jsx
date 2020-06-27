@@ -23,6 +23,11 @@ class Cart extends React.Component {
       quantity,
       addToOrders,
     } = this.props;
+
+    let total = Number(0);
+    cartArr.map(
+      (item) => (total += Number(item.quantity) * Number(item.price))
+    );
     return (
       <div
         style={{
@@ -44,7 +49,7 @@ class Cart extends React.Component {
             {cartArr?.map((item, i) => (
               <tr style={{ textAlign: "center" }} key={i}>
                 <td>{item.item}</td>
-                <td>{item.price}</td>
+                <td>{Number(item.price) * Number(item.quantity)}</td>
                 <td>{item.quantity}</td>
                 <td>
                   <button onClick={() => addCounter(item.id)}>+</button>
@@ -55,6 +60,9 @@ class Cart extends React.Component {
                 </td>
               </tr>
             ))}
+            <tr>
+              <th rowSpan="3">Total = {total}</th>
+            </tr>
           </table>
         </div>
         <br />
